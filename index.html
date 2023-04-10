@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            * {
+  box-sizing: border-box;
+}
+
+body {
+    background-image: url("mm.jpg");
+    background-repeat:repeat-x ;
+    background-size:cover ;
+  background-attachment: scroll;
+    
+    
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+
+
+
+
+
+.quiz-container {
+  background-color: #e6ffe6;
+  border-radius: 5px;
+  box-shadow: 0 0 0px 0px rgba(190, 237, 51, 0.775);
+  width: 550px;
+  max-width: 95vw;
+  overflow: hidden;
+}
+
+.quiz-header {
+  padding: 1rem;
+}
+
+h2 {
+  color: rgb(14, 14, 14);
+  padding: 1rem;
+  text-align: center;
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+ul li label {
+  cursor: pointer;
+}
+
+
+button {
+  background-color: #3b10bbcb;
+  color: #fff;
+  border: none;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-family: inherit;
+  padding: 1.1rem;
+
+}
+
+button:hover {
+  background-color: #732d91;
+}
+
+button:focus {
+  outline: none;
+  background-color: #5e3370;
+}
+
+
+.row-begin-countdown{
+text-align: center;
+color: blue;
+}
+
+
+
+        </style>
+
+
+
+    </head>
+    <body>
+      
+   
+
+
+
+          
+        <div class="quiz-container" id="quiz">
+
+          <div class="row-begin-countdown">
+            <div class="col-md-12 text-center">
+              <progress value="60" max="60" id="pageBeginCountdown"></progress>
+              <p>  <span id="pageBeginCountdownText">60 </span> seconds</p>
+            </div>
+          </div>
+
+            <div class="quiz-header">
+                <h2 id="question"></h2>
+             
+             </div>
+
+             <ul>
+                <li>
+                  <input type="radio" name="answer" id="a" class="answer" />
+                  <label for="a" id="a_text"></label>
+                </li>
+                <li>
+                  <input type="radio" name="answer" id="b" class="answer" />
+                  <label for="b" id="b_text"></label>
+                </li>
+                <li>
+                  <input type="radio" name="answer" id="c" class="answer" />
+                  <label for="c" id="c_text"></label>
+                </li>
+                <li>
+                  <input type="radio" name="answer" id="d" class="answer" />
+                  <label for="d" id="d_text"></label>
+                </li>
+              </ul>
+
+
+              <button id="submit">Submit</button>
+        </div>
+
+
+
+        <script>
+
+
+ProgressCountdown(60, 'pageBeginCountdown', 'pageBeginCountdownText').then(value => alert(`Time fineshed: ${value}.`));
+
+function ProgressCountdown(timeleft, bar, text) {
+  return new Promise((resolve, reject) => {
+    var countdownTimer = setInterval(() => {
+      timeleft--;
+
+      document.getElementById(bar).value = timeleft;
+      document.getElementById(text).textContent = timeleft;
+
+      if (timeleft <= 0) {
+        clearInterval(countdownTimer);
+        resolve(true);
+      }
+    }, 1000);
+  });
+}
+
+
+
+
+
+            const quizData = [
+            {
+            question: "What does HTML stand for?",
+            a: "Hypertext Markup Language",
+            b: "Hypertext Markdown Language",
+            c: "Hyperloop Main Language",
+            d: "Hypertext My Language",
+            correct: "a",
+          },
+  
+          {
+            question: "What does CSS stand for?",
+            a: "Central Style Sheets",
+            b: "Cascading Style Sheets",
+            c: "Cascading Simple Sheets",
+            d: "none of the above",
+            correct: "b",
+          },
+    
+
+
+          {
+            question: "Which language runs in a web browser?",
+            a: "Java",
+            b: "C",
+            c: "Python",
+            d: "JavaScript",
+            correct: "d",
+          },
+          {
+            question: "You can add comments to  HTML by using the which syntax?",
+            a: "//",
+            b: "<!---->",
+            c: "/* */",
+            d: "none of the above",
+            correct: "b",
+          },
+
+
+
+          {
+            question: "CSS can be added to HTML elements in which ways?",
+            a: "Inline",
+            b: "Internal ",
+            c: "External",
+            d: "All",
+            correct: "d",
+          },
+
+          {
+            question: "Which one of these are block-level element?",
+            a: "<img>",
+            b: "<a> ",
+            c: "<form>",
+            d: "<span>",
+            correct: "c",
+          },
+        
+          {
+            question: "Writing into an alert box, in javascript we use ?",
+            a: "innerHTML",
+            b: "document.write() ",
+            c: "window.alert()",
+            d: "console.log()",
+            correct: "c",
+          },
+        
+
+          {
+            question: "Which attribute specifies if the submitted result will open in a new browser tab ?",
+            a: "name",
+            b: "value ",
+            c: "target",
+            d: "action",
+            correct: "c",
+          },
+        
+          {
+            question: "Which properties are used to generate space around an element's content?",
+            a: "margin",
+            b: "padding",
+            c: "border",
+            d: "all",
+            correct: "b",
+          },
+          
+          {
+            question: "To separate group selectors should use?",
+            a: ".",
+            b: ",",
+            c: ";",
+            d: "'",
+            correct: "b",
+          },
+
+        ];
+        
+        
+        const quiz = document.getElementById("quiz");
+        const answerElements = document.querySelectorAll(".answer");
+        const questionElement = document.getElementById("question");
+        const a_text = document.getElementById("a_text");
+        const b_text = document.getElementById("b_text");
+        const c_text = document.getElementById("c_text");
+        const d_text = document.getElementById("d_text");
+        const submitButton = document.getElementById("submit");
+        
+        let currentQuiz = 0;
+        let score = 0;
+        
+        const deselectAnswers = () => {
+          answerElements.forEach((answer) => (answer.checked = false));
+        };
+        
+        
+        const getSelected = () => {
+          let answer;
+          answerElements.forEach((answerElement) => {
+            if (answerElement.checked) answer = answerElement.id;
+          });
+          return answer;
+        };
+        
+        const loadQuiz = () => {
+          deselectAnswers();
+          const currentQuizData = quizData[currentQuiz];
+          questionElement.innerText = currentQuizData.question;
+          a_text.innerText = currentQuizData.a;
+          b_text.innerText = currentQuizData.b;
+          c_text.innerText = currentQuizData.c;
+          d_text.innerText = currentQuizData.d;
+        };
+        
+        loadQuiz();
+        
+        
+        
+        submitButton.addEventListener("click", () => {
+          const answer = getSelected();
+          if (answer) {
+            if (answer === quizData[currentQuiz].correct) score++;
+            currentQuiz++;
+            if (currentQuiz < quizData.length) loadQuiz();
+            else {
+              quiz.innerHTML = `
+                    <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+                    <button onclick="history.go(0)">Play Again</button>
+                ` // location.reload() won't work in CodePen for security reasons;
+            }
+          }
+        });
+
+
+
+  
+
+        </script>
+    </body>
+
+</html>
